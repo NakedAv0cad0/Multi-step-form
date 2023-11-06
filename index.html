@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Multi-step form</title>
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;700;800&family=Open+Sans:wght@300;400;600;700;800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,900&family=Ubuntu:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Sidebar start -->
+
+      <div class="side-bar">
+        <div class="steps">
+          <div class="stp" id="stp-1">
+            <div class="step-order active">1</div>
+            <div class="text">
+              <span>STEP 1</span>
+              <h2>YOUR INFO</h2>
+            </div>
+          </div>
+          <div class="stp" id="stp-2">
+            <div class="step-order">2</div>
+            <div class="text">
+              <span>STEP 2</span>
+              <h2>SELECT PLAN</h2>
+            </div>
+          </div>
+          <div class="stp" id="stp-3">
+            <div class="step-order">3</div>
+            <div class="text">
+              <span>STEP 3</span>
+              <h2>ADD-ONS</h2>
+            </div>
+          </div>
+          <div class="stp" id="stp-4">
+            <div class="step-order">4</div>
+            <div class="text">
+              <span>STEP 4</span>
+              <h2>SUMMARY</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar end -->
+      <div class="main-bar">
+        <!-- Step 1 start -->
+
+        <div class="step current" id="step-1">
+          <h1 class="step-title">Personal info</h1>
+          <span class="step-dicrp">
+            Please provide your name, email address, and phone number.
+          </span>
+          <form id="form-1" class="form">
+            <label for="name">Name</label>
+            <input type="text" placeholder="e.g. Stephen King" id="name" />
+            <label for="email">Email Address</label>
+            <input
+              type="text"
+              placeholder="e.g. stephenking@lorem.com"
+              id="email"
+            />
+            <label for="number">Phone Number</label>
+            <input type="text" placeholder="e.g. +1 234 567 890" id="number" />
+            <button type="submit" class="next btn">Next Step</button>
+          </form>
+        </div>
+
+        <!-- Step 1 end -->
+
+        <!-- Step 2 start -->
+
+        <div class="step" id="step-2">
+          <h1 class="step-title">Select your plan</h1>
+          <span class="step-dicrp">
+            You have the option of monthly or yearly billing.
+          </span>
+          <form id="form-2" class="form">
+            <div class="plans">
+              <div class="arcade plan">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  viewBox="0 0 40 40"
+                >
+                  <g fill="none" fill-rule="evenodd">
+                    <circle cx="20" cy="20" r="20" fill="#FFAF7E" />
+                    <path
+                      fill="#FFF"
+                      fill-rule="nonzero"
+                      d="M24.995 18.005h-3.998v5.998h-2v-5.998H15a1 1 0 0 0-1 1V29a1 1 0 0 0 1 1h9.995a1 1 0 0 0 1-1v-9.995a1 1 0 0 0-1-1Zm-5.997 8.996h-2v-1.999h2v2Zm2-11.175a2.999 2.999 0 1 0-2 0v2.18h2v-2.18Z"
+                    />
+                  </g>
+                </svg>
+                <h2>Arcade</h2>
+                <span class="current-plan-price">$9/mo</span>
+              </div>
+              <div class="advanced plan active">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  viewBox="0 0 40 40"
+                >
+                  <g fill="none" fill-rule="evenodd">
+                    <circle cx="20" cy="20" r="20" fill="#F9818E" />
+                    <path
+                      fill="#FFF"
+                      fill-rule="nonzero"
+                      d="M25.057 15H14.944C12.212 15 10 17.03 10 19.885c0 2.857 2.212 4.936 4.944 4.936h10.113c2.733 0 4.943-2.08 4.943-4.936S27.79 15 25.057 15ZM17.5 20.388c0 .12-.108.237-.234.237h-1.552v1.569c0 .126-.138.217-.259.217H14.5c-.118 0-.213-.086-.213-.203v-1.583h-1.569c-.126 0-.217-.139-.217-.26v-.956c0-.117.086-.213.202-.213h1.584v-1.554c0-.125.082-.231.203-.231h.989c.12 0 .236.108.236.234v1.551h1.555c.125 0 .231.083.231.204v.988Zm5.347.393a.862.862 0 0 1-.869-.855c0-.472.39-.856.869-.856.481 0 .87.384.87.856 0 .471-.389.855-.87.855Zm1.9 1.866a.86.86 0 0 1-.87-.852.86.86 0 0 1 .87-.855c.48 0 .87.38.87.855a.86.86 0 0 1-.87.852Zm0-3.736a.862.862 0 0 1-.87-.854c0-.472.39-.856.87-.856s.87.384.87.856a.862.862 0 0 1-.87.854Zm1.899 1.87a.862.862 0 0 1-.868-.855c0-.472.389-.856.868-.856s.868.384.868.856a.862.862 0 0 1-.868.855Z"
+                    />
+                  </g>
+                </svg>
+                <h2>Advanced</h2>
+                <span class="current-plan-price">$12/mo</span>
+              </div>
+              <div class="pro plan">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  viewBox="0 0 40 40"
+                >
+                  <g fill="none" fill-rule="evenodd">
+                    <circle cx="20" cy="20" r="20" fill="#483EFF" />
+                    <path
+                      fill="#FFF"
+                      fill-rule="nonzero"
+                      d="M26.666 13H13.334A3.333 3.333 0 0 0 10 16.333v7.193a3.447 3.447 0 0 0 2.14 3.24c1.238.5 2.656.182 3.56-.8L18.52 23h2.96l2.82 2.966a3.2 3.2 0 0 0 3.56.8 3.447 3.447 0 0 0 2.14-3.24v-7.193A3.333 3.333 0 0 0 26.666 13Zm-9.333 6H16v1.333a.667.667 0 0 1-1.333 0V19h-1.333a.667.667 0 0 1 0-1.334h1.333v-1.333a.667.667 0 1 1 1.333 0v1.333h1.333a.667.667 0 1 1 0 1.334Zm7.333 2a2.667 2.667 0 1 1 0-5.333 2.667 2.667 0 0 1 0 5.333ZM26 18.333a1.333 1.333 0 1 1-2.667 0 1.333 1.333 0 0 1 2.667 0Z"
+                    />
+                  </g>
+                </svg>
+                <h2>Pro</h2>
+                <span class="current-plan-price">$15/mo</span>
+              </div>
+            </div>
+            <div class="options">
+              <h3 class="active option">Monthly</h3>
+              <div class="switch"><span></span></div>
+              <h3 class="option">Yearly</h3>
+            </div>
+            <button type="submit" class="next btn">Next Step</button>
+            <button class="back btn">Go Back</button>
+          </form>
+        </div>
+
+        <!-- Step 2 end -->
+
+        <!-- Step 3 start -->
+
+        <div class="step" id="step-3">
+          <h1 class="step-title">Pick add-ons</h1>
+          <span class="step-dicrp">
+            Add-ons help enhance your gaming experience.
+          </span>
+          <form id="form-3" class="form">
+            <div class="add-ons">
+              <div class="service one">
+                <div class="check">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="9"
+                    viewBox="0 0 12 9"
+                  >
+                    <path
+                      fill="none"
+                      stroke="#FFF"
+                      stroke-width="2"
+                      d="m1 4 3.433 3.433L10.866 1"
+                    />
+                  </svg>
+                </div>
+                <div class="text">
+                  <div class="service-name">
+                    <h4 class="service-name">Online service</h4>
+                    <p>Access to multiplayer games</p>
+                  </div>
+                  <span class="pricing">+$1/mo</span>
+                </div>
+              </div>
+              <div class="service two">
+                <div class="check">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="9"
+                    viewBox="0 0 12 9"
+                  >
+                    <path
+                      fill="none"
+                      stroke="#FFF"
+                      stroke-width="2"
+                      d="m1 4 3.433 3.433L10.866 1"
+                    />
+                  </svg>
+                </div>
+                <div class="text">
+                  <div class="service-name">
+                    <h4 class="service-name">Larger storage</h4>
+                    <p>Extra 1TB of cloud save</p>
+                  </div>
+                  <span class="pricing">+$2/mo</span>
+                </div>
+              </div>
+              <div class="service three">
+                <div class="check">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="9"
+                    viewBox="0 0 12 9"
+                  >
+                    <path
+                      fill="none"
+                      stroke="#FFF"
+                      stroke-width="2"
+                      d="m1 4 3.433 3.433L10.866 1"
+                    />
+                  </svg>
+                </div>
+                <div class="text">
+                  <div class="service-name">
+                    <h4 class="service-name">Customizable Profile</h4>
+                    <p>custom theme on your profile</p>
+                  </div>
+                  <span class="pricing">+$2/mo</span>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="next btn">Next Step</button>
+            <button class="back btn">Go Back</button>
+          </form>
+        </div>
+
+        <!-- Step 3 end -->
+
+        <!-- Step 4 start -->
+        <div class="step" id="step-4">
+          <h1 class="step-title">Finishing up</h1>
+          <span class="step-dicrp">
+            Double-check everything looks OK before confirming.
+          </span>
+          <form id="form-4" class="form">
+            <div class="selected-plan">
+              <div class="plan">
+                <div class="text">
+                  <h3 id="selected-plan">Arcade(Monthly)</h3>
+                  <p id="change">Change</p>
+                </div>
+                <span id="plan-price" class="price">$9/mo</span>
+              </div>
+              <div id="selected-services" class="services"></div>
+              <div class="total">
+                <h4>Total <span>(Monthly)</span></h4>
+                <span id="total" class="price">+$12/mo</span>
+              </div>
+            </div>
+
+            <button id="submit" class="submit btn">Confirm</button>
+            <button class="back btn">Go Back</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dynamically add subscription and add-on selections here -->
+
+    Total (per month/year) Go Back Confirm
+
+    <!-- Step 4 end -->
+
+    <!-- Step 5 start -->
+
+    Thank you! Thanks for confirming your subscription! We hope you have fun
+    using our platform. If you ever need support, please feel free to email us
+    at support@loremgaming.com.
+
+    <!-- Step 5 end -->
+
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="younesatye.com">Younes</a>.
+    </div>
+
+    <script src="js/script.js" async defer></script>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "allowJs": true,
+    "outDir": "js",
+    "lib": ["ES7", "DOM"]
+  }
+}
