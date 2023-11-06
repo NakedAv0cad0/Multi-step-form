@@ -1,36 +1,18 @@
-// Step 1
 var form1 = document.getElementById("form-1");
 var form2 = document.getElementById("form-2");
 var form3 = document.getElementById("form-3");
 var form4 = document.getElementById("form-4");
 var nextBtns = document.querySelectorAll(".next");
 var backBtns = document.querySelectorAll(".back");
+// load first step input data from the SessionStorage
 loadData();
-// Selected Options
-// const selected
 // step 1
-// Event Listener
 form1.addEventListener("submit", function (e) {
     e.preventDefault();
     var validation = checkInfo();
     if (!validation)
         return;
     nextStep();
-});
-nextBtns.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-        if (form1.parentElement.classList.contains("current"))
-            return;
-        nextStep();
-    });
-});
-backBtns.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-        var currStep = document.querySelector(".step.current");
-        if (currStep.id === "step-2")
-            loadData();
-        backStep();
-    });
 });
 // Functions
 document.querySelectorAll("input").forEach(function (input) {
@@ -98,44 +80,28 @@ function checkInfo() {
     saveData(info);
     return validation;
 }
-// Load and Save User's Info
-function saveData(_data) {
-    sessionStorage.setItem("name", _data.name);
-    sessionStorage.setItem("email", _data.email);
-    sessionStorage.setItem("number", _data.number);
-}
-function loadData() {
-    var name = document.getElementById("name");
-    var email = document.getElementById("email");
-    var number = document.getElementById("number");
-    if (sessionStorage.name)
-        name.value = sessionStorage.name;
-    if (sessionStorage.email)
-        email.value = sessionStorage.email;
-    if (sessionStorage.number)
-        number.value = sessionStorage.number;
-}
 // step 2
-var plans = document.querySelectorAll(".plans .plan");
-var switchBtn = document.querySelector(".switch");
 form2.addEventListener("submit", function (e) {
     e.preventDefault();
-    checkData();
+    grabSelectedPlan();
     subsPeriode();
 });
+var plans = document.querySelectorAll(".plans .plan");
+var switchBtn = document.querySelector(".switch");
 plans.forEach(function (plan) {
     plan.addEventListener("click", function (e) {
         plans.forEach(function (plan) { return plan.classList.remove("active"); });
         plan.classList.add("active");
     });
 });
+// (year/month) switch btn functionality
 switchBtn.addEventListener("click", function () {
     var ball = switchBtn.querySelector("span");
     var arcade = document.querySelector(".arcade span");
     var advanced = document.querySelector(".advanced span");
     var pro = document.querySelector(".pro span");
     var offers = document.querySelectorAll(".offer");
-    // change parcing start with the default value
+    // make the parcing start with the default value
     arcade.innerText = "$9/mo";
     advanced.innerText = "$12/mo";
     pro.innerText = "$15/mo";
@@ -144,7 +110,7 @@ switchBtn.addEventListener("click", function () {
     document.querySelectorAll(".options .service").forEach(function (service) {
         service.classList.toggle("active");
     });
-    // remove free months if they have been added by yearly plan
+    // remove the offer element if they have been added by yearly plan
     offers.forEach(function (offer) {
         offer.remove();
     });
@@ -155,7 +121,6 @@ switchBtn.addEventListener("click", function () {
         var offer_1 = document.createElement("span");
         offer_1.classList.add("offer");
         offer_1.innerText = "2 months free";
-        // add the offer span to all plans
         plans.forEach(function (plan) {
             plan.appendChild(offer_1.cloneNode(true));
         });
@@ -170,11 +135,12 @@ switchBtn.addEventListener("click", function () {
     });
 });
 // step 3
-var services = document.querySelectorAll(".add-ons .service");
 form3.addEventListener("submit", function (e) {
     e.preventDefault();
     calcTotal();
 });
+var services = document.querySelectorAll(".add-ons .service");
+// switch between yearly and monthly subs
 function subsPeriode() {
     var ball = switchBtn.querySelector("span");
     var service1 = document.querySelector(".add-ons .service:first-of-type .service-name~.pricing");
@@ -189,6 +155,7 @@ function subsPeriode() {
         service3.innerText = "+$20/yr";
     }
 }
+// insert selected services to summry step
 services.forEach(function (service) {
     service.addEventListener("click", function () {
         service.classList.toggle("active");
@@ -225,18 +192,15 @@ var selectedPlanPrice = document.getElementById("plan-price");
 var servicesHolder = document.getElementById("selected-services");
 var change = document.getElementById("change");
 change.addEventListener("click", function (e) {
-    form4.parentElement.classList.remove("current");
-    form2.parentElement.classList.add("current");
+    backStep();
+    backStep();
 });
-function checkData() {
+function grabSelectedPlan() {
     var currPlanName = document.querySelector(".plans .plan.active h2");
     var currPlanPrice = document.querySelector(".plans .plan.active .current-plan-price");
-    console.log("+".concat(currPlanPrice.innerText), currPlanName.innerText);
     selectedPlanName.innerText = currPlanName.innerText;
     selectedPlanPrice.innerText = "+".concat(currPlanPrice.innerText);
 }
-// General events
-// General Functions
 function calcTotal() {
     var isYearly = Boolean(document.querySelector(".yearly"));
     var total = document.getElementById("total");
@@ -253,6 +217,8 @@ function calcTotal() {
     }
     total.innerText += "mo";
 }
+// General functions
+// back and forward btns functions
 function backStep() {
     var step = document.querySelector(".current");
     step.classList.remove("current");
@@ -281,8 +247,46 @@ function nextStep() {
             return;
         }
         if (stepOrder.classList.contains("active")) {
+            if (stepOrder.classList.contains("final-step"))
+                return;
             stepOrder.classList.remove("active");
             current = true;
         }
     });
 }
+// Load and Save User's Info
+function saveData(_data) {
+    sessionStorage.setItem("name", _data.name);
+    sessionStorage.setItem("email", _data.email);
+    sessionStorage.setItem("number", _data.number);
+}
+function loadData() {
+    var name = document.getElementById("name");
+    var email = document.getElementById("email");
+    var number = document.getElementById("number");
+    if (sessionStorage.name)
+        name.value = sessionStorage.name;
+    if (sessionStorage.email)
+        email.value = sessionStorage.email;
+    if (sessionStorage.number)
+        number.value = sessionStorage.number;
+}
+// General Event Listeners
+// event listener for back and forward btns
+nextBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+        if (form1.parentElement.classList.contains("current"))
+            return;
+        nextStep();
+    });
+});
+backBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+        var currStep = document.querySelector(".step.current");
+        if (currStep.id === "step-2")
+            loadData();
+        if (form4.parentElement.classList.contains("current"))
+            return;
+        backStep();
+    });
+});

@@ -1,4 +1,3 @@
-// Step 1
 const form1 = document.getElementById("form-1") as HTMLFormElement;
 const form2 = document.getElementById("form-2") as HTMLFormElement;
 const form3 = document.getElementById("form-3") as HTMLFormElement;
@@ -7,34 +6,16 @@ const form4 = document.getElementById("form-4") as HTMLFormElement;
 const nextBtns = document.querySelectorAll(".next");
 const backBtns = document.querySelectorAll(".back");
 
+// load first step input data from the SessionStorage
 loadData();
-// Selected Options
-
-// const selected
 
 // step 1
 
-// Event Listener
 form1.addEventListener("submit", (e) => {
   e.preventDefault();
   let validation: boolean = checkInfo();
   if (!validation) return;
   nextStep();
-});
-
-nextBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    if (form1.parentElement.classList.contains("current")) return;
-    nextStep();
-  });
-});
-
-backBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    let currStep = document.querySelector(".step.current") as Element;
-    if (currStep.id === "step-2") loadData();
-    backStep();
-  });
 });
 
 // Functions
@@ -118,30 +99,16 @@ function checkInfo() {
   saveData(info);
   return validation;
 }
-// Load and Save User's Info
-function saveData(_data: { name: string; email: string; number: string }) {
-  sessionStorage.setItem("name", _data.name);
-  sessionStorage.setItem("email", _data.email);
-  sessionStorage.setItem("number", _data.number);
-}
-function loadData() {
-  const name = document.getElementById("name") as HTMLInputElement;
-  const email = document.getElementById("email") as HTMLInputElement;
-  const number = document.getElementById("number") as HTMLInputElement;
-  if (sessionStorage.name) name.value = sessionStorage.name;
-  if (sessionStorage.email) email.value = sessionStorage.email;
-  if (sessionStorage.number) number.value = sessionStorage.number;
-}
 
 // step 2
-const plans = document.querySelectorAll(".plans .plan");
-const switchBtn = document.querySelector(".switch");
-
 form2.addEventListener("submit", (e) => {
   e.preventDefault();
-  checkData();
+  grabSelectedPlan();
   subsPeriode();
 });
+
+const plans = document.querySelectorAll(".plans .plan");
+const switchBtn = document.querySelector(".switch");
 
 plans.forEach((plan) => {
   plan.addEventListener("click", (e) => {
@@ -150,6 +117,7 @@ plans.forEach((plan) => {
   });
 });
 
+// (year/month) switch btn functionality
 switchBtn.addEventListener("click", () => {
   let ball = switchBtn.querySelector("span");
   const arcade = document.querySelector(".arcade span") as HTMLSpanElement;
@@ -157,7 +125,7 @@ switchBtn.addEventListener("click", () => {
   const pro = document.querySelector(".pro span") as HTMLSpanElement;
   let offers = document.querySelectorAll(".offer");
 
-  // change parcing start with the default value
+  // make the parcing start with the default value
   arcade.innerText = "$9/mo";
   advanced.innerText = "$12/mo";
   pro.innerText = "$15/mo";
@@ -169,7 +137,7 @@ switchBtn.addEventListener("click", () => {
     service.classList.toggle("active");
   });
 
-  // remove free months if they have been added by yearly plan
+  // remove the offer element if they have been added by yearly plan
   offers.forEach((offer) => {
     offer.remove();
   });
@@ -183,7 +151,6 @@ switchBtn.addEventListener("click", () => {
     offer.classList.add("offer");
     offer.innerText = "2 months free";
 
-    // add the offer span to all plans
     plans.forEach((plan) => {
       plan.appendChild(offer.cloneNode(true));
     });
@@ -200,13 +167,15 @@ switchBtn.addEventListener("click", () => {
 });
 
 // step 3
-let services = document.querySelectorAll(".add-ons .service");
 
 form3.addEventListener("submit", (e) => {
   e.preventDefault();
   calcTotal();
 });
 
+let services = document.querySelectorAll(".add-ons .service");
+
+// switch between yearly and monthly subs
 function subsPeriode() {
   let ball = switchBtn.querySelector("span");
 
@@ -231,6 +200,7 @@ function subsPeriode() {
   }
 }
 
+// insert selected services to summry step
 services.forEach((service) => {
   service.addEventListener("click", () => {
     service.classList.toggle("active");
@@ -285,25 +255,20 @@ const servicesHolder = document.getElementById("selected-services");
 
 const change = document.getElementById("change") as Element;
 change.addEventListener("click", (e) => {
-  form4.parentElement.classList.remove("current");
-  form2.parentElement.classList.add("current");
+  backStep();
+  backStep();
 });
 
-function checkData() {
+function grabSelectedPlan() {
   let currPlanName = document.querySelector(
     ".plans .plan.active h2"
   ) as HTMLHeadingElement;
   let currPlanPrice = document.querySelector(
     ".plans .plan.active .current-plan-price"
   ) as HTMLHeadingElement;
-  console.log("+".concat(currPlanPrice.innerText), currPlanName.innerText);
-
   selectedPlanName.innerText = currPlanName.innerText;
   selectedPlanPrice.innerText = "+".concat(currPlanPrice.innerText);
 }
-// General events
-
-// General Functions
 
 function calcTotal() {
   let isYearly: boolean = Boolean(document.querySelector(".yearly"));
@@ -322,6 +287,9 @@ function calcTotal() {
   total.innerText += "mo";
 }
 
+// General functions
+
+// back and forward btns functions
 function backStep() {
   let step = document.querySelector(".current");
   step.classList.remove("current");
@@ -352,8 +320,43 @@ function nextStep() {
       return;
     }
     if (stepOrder.classList.contains("active")) {
+      if (stepOrder.classList.contains("final-step")) return;
       stepOrder.classList.remove("active");
       current = true;
     }
   });
 }
+
+// Load and Save User's Info
+function saveData(_data: { name: string; email: string; number: string }) {
+  sessionStorage.setItem("name", _data.name);
+  sessionStorage.setItem("email", _data.email);
+  sessionStorage.setItem("number", _data.number);
+}
+function loadData() {
+  const name = document.getElementById("name") as HTMLInputElement;
+  const email = document.getElementById("email") as HTMLInputElement;
+  const number = document.getElementById("number") as HTMLInputElement;
+  if (sessionStorage.name) name.value = sessionStorage.name;
+  if (sessionStorage.email) email.value = sessionStorage.email;
+  if (sessionStorage.number) number.value = sessionStorage.number;
+}
+
+// General Event Listeners
+
+// event listener for back and forward btns
+nextBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (form1.parentElement.classList.contains("current")) return;
+    nextStep();
+  });
+});
+
+backBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    let currStep = document.querySelector(".step.current") as Element;
+    if (currStep.id === "step-2") loadData();
+    if (form4.parentElement.classList.contains("current")) return;
+    backStep();
+  });
+});

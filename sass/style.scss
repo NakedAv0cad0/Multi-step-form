@@ -1,10 +1,10 @@
 @use "./variables" as *;
 @use "./base";
-
+@use "./mixing" as *;
 .container {
   padding: 1rem;
   margin: 10rem auto 5rem;
-  width: fit-content;
+  max-width: 56rem;
   background-color: $White;
   display: flex;
   align-items: stretch;
@@ -30,7 +30,7 @@
         .step-order {
           display: block;
           width: 2.5rem;
-          height: 2.5rem;
+          aspect-ratio: 1/1;
           border: 0.1rem solid $White;
           border-radius: 50%;
           display: flex;
@@ -56,6 +56,7 @@
   .main-bar {
     padding: 3rem 4rem 0 0;
     position: relative;
+    flex: 1;
     .btn {
       width: 7rem;
       height: 2.5rem;
@@ -64,16 +65,16 @@
       transition: $delay;
       position: absolute;
       bottom: 1rem;
+      border: 0.1rem solid transparent;
       cursor: pointer;
       &:hover,
       &:focus {
         outline: none;
       }
-      &.next,
-      &.submit {
+      &.next {
         background-color: $Marine-blue;
         color: $White;
-        border: 0.1rem solid currentColor;
+        border-color: currentColor;
         right: 4rem;
         &:hover,
         &:focus {
@@ -91,7 +92,7 @@
     .step {
       display: none;
       flex-direction: column;
-      width: 506.9px;
+      width: 100%;
       .step-title {
         color: $Marine-blue;
         font-weight: 600;
@@ -105,39 +106,6 @@
         display: flex;
         flex-direction: column;
       }
-      // .btn {
-      //   width: 7rem;
-      //   height: 2.5rem;
-      //   display: inline-block;
-      //   border-radius: 0.5rem;
-      //   font-weight: 600;
-      //   transition: $delay;
-      //   cursor: pointer;
-      //   &:hover,
-      //   &:focus {
-      //     outline: none;
-      //   }
-      //   &#next {
-      //     align-self: end;
-      //     background-color: $Marine-blue;
-      //     color: $White;
-      //     border: 0.1rem solid currentColor;
-      //     &:hover,
-      //     &:focus {
-      //       background-color: transparent;
-      //       color: $Marine-blue;
-      //       outline: none;
-      //     }
-      //   }
-      //   &#back {
-      //     position: relative;
-      //     top: 2.5rem;
-      //     margin-top: 6rem;
-      //     background-color: transparent;
-      //     border: 0.1rem solid transparent;
-      //     color: $Marine-blue;
-      //   }
-      // }
       &.current {
         display: flex;
       }
@@ -182,6 +150,7 @@
         .plans {
           display: flex;
           gap: 1rem;
+          width: 100%;
           justify-content: center;
           align-items: center;
           margin-block: 2rem;
@@ -194,7 +163,7 @@
             padding: 1rem 0.7rem;
             border-radius: 0.5rem;
             height: 168.15px;
-            width: 150px;
+            width: 31%;
             cursor: pointer;
             &:hover,
             &.active {
@@ -334,7 +303,7 @@
             position: relative;
             color: $Marine-blue;
             #change {
-              margin-top: 1rem;
+              margin-top: 0.5rem;
               color: $Purplish-blue;
               cursor: pointer;
               font-weight: 500;
@@ -390,6 +359,129 @@
               color: $Purplish-blue;
               font-size: 1.4rem;
               font-weight: 600;
+            }
+          }
+        }
+        .btn.back {
+          opacity: 0.5;
+          cursor: context-menu;
+        }
+      }
+      &#step-5 {
+        .holder {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          text-align: center;
+          margin-top: 25%;
+          h1 {
+            margin-block: 1.8rem 1rem;
+            color: $Marine-blue;
+          }
+          p {
+            color: $Cool-gray;
+            width: 50ch;
+            line-height: 1.6;
+          }
+        }
+      }
+    }
+  }
+  @include d("l") {
+    flex-direction: column;
+    gap: 1rem;
+    .side-bar {
+      width: 100%;
+      background-size: cover;
+      height: fit-content;
+      padding: 3rem 1rem;
+      .steps {
+        flex-direction: row;
+        justify-content: center;
+        @include d("s") {
+          .text {
+            display: none;
+          }
+        }
+        .step-order {
+          width: 1.7rem;
+          aspect-ratio: 1/1;
+        }
+      }
+    }
+    .main-bar {
+      padding: 1rem 1rem 5rem;
+      .btn {
+        bottom: 0;
+      }
+    }
+  }
+  @include d("xs") {
+    margin: 0;
+    padding: 0;
+    background-color: $Magnolia;
+    box-shadow: none;
+    .side-bar {
+      border-radius: 0;
+      background-position-y: 20rem;
+      width: 100%;
+      background-size: cover;
+      height: fit-content;
+      padding: 3rem 1rem 6rem;
+      .steps {
+        flex-direction: row;
+        justify-content: center;
+        @include d("s") {
+          .text {
+            display: none;
+          }
+        }
+        .step-order {
+          width: 1.7rem;
+          aspect-ratio: 1/1;
+        }
+      }
+    }
+    .main-bar {
+      position: relative;
+      left: 50%;
+      transform: translate(-50%, -15%);
+      width: 350px;
+      padding-bottom: 5rem;
+      background-color: $White;
+      box-shadow: 0 0.25rem 0.25rem $Cool-gray;
+      border-radius: inherit;
+      .btn {
+        bottom: 0;
+        border-radius: 0;
+        border: none;
+        &.next {
+          right: 0;
+          border-bottom-right-radius: 0.5rem;
+        }
+        &.back {
+          left: 0;
+        }
+      }
+      .step {
+        height: 446px;
+        &#step-2 {
+          .plans {
+            flex-direction: column;
+            .plan {
+              justify-content: start;
+              align-items: center;
+              gap: 1rem;
+              height: fit-content;
+              flex-direction: row;
+              width: 100%;
+              .text {
+                flex: 1;
+                h2 {
+                  margin: 0 0 0.5rem;
+                }
+              }
             }
           }
         }
